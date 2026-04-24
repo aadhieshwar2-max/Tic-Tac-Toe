@@ -1,9 +1,21 @@
+import java.util.Random;
+
 public class TicTacToe {
 
-    // Method to place symbol on board
-    public static void updateBoard(char[][] board, int row, int col, char symbol) {
+    // Method to check if move is valid
+    public static boolean isValidMove(char[][] board, int row, int col) {
 
-        // Update board with symbol
+        // Boundary check
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
+        }
+
+        // Cell must be empty
+        return board[row][col] == '-';
+    }
+
+    // Method to update board
+    public static void updateBoard(char[][] board, int row, int col, char symbol) {
         board[row][col] = symbol;
     }
 
@@ -29,25 +41,53 @@ public class TicTacToe {
         }
     }
 
+    // Method for computer move
+    public static void computerMove(char[][] board, char computerSymbol) {
+
+        Random random = new Random();
+
+        int row;
+        int col;
+        int slot;
+
+        // Loop until valid move is found
+        while (true) {
+
+            // Generate random slot from 1-9
+            slot = random.nextInt(9) + 1;
+
+            // Convert slot to row and column
+            row = (slot - 1) / 3;
+            col = (slot - 1) % 3;
+
+            // Validate move
+            if (isValidMove(board, row, col)) {
+
+                // Place symbol
+                updateBoard(board, row, col, computerSymbol);
+
+                System.out.println("Computer selected slot: " + slot);
+                break;
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         // Create board
         char[][] board = {
-                {'-', '-', '-'},
-                {'-', '-', '-'},
+                {'X', '-', '-'},
+                {'-', 'O', '-'},
                 {'-', '-', '-'}
         };
 
-        // Move details
-        int row = 1;
-        int col = 1;
-        char symbol = 'X';
+        System.out.println("Board Before Computer Move:");
+        printBoard(board);
 
-        // Update board
-        updateBoard(board, row, col, symbol);
+        // Computer makes move
+        computerMove(board, 'X');
 
-        // Display updated board
-        System.out.println("Updated Tic-Tac-Toe Board:");
+        System.out.println("\nBoard After Computer Move:");
         printBoard(board);
     }
 }
