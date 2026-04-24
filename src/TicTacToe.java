@@ -1,35 +1,47 @@
+import java.util.Random;
+
 public class TicTacToe {
 
     public static void main(String[] args) {
 
-        // Create 3x3 board
-        char[][] board = new char[3][3];
+        // Players
+        String player1 = "Player 1";
+        String player2 = "Player 2";
 
-        // Initialize board with '-'
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                board[i][j] = '-';
-            }
+        // Variables to store symbols and current player
+        char player1Symbol;
+        char player2Symbol;
+        String currentPlayer;
+
+        // Random toss generation
+        Random random = new Random();
+
+        // 0 -> Player 1 starts
+        // 1 -> Player 2 starts
+        int toss = random.nextInt(2);
+
+        // Conditional logic for assigning turns and symbols
+        if (toss == 0) {
+
+            currentPlayer = player1;
+
+            player1Symbol = 'X';
+            player2Symbol = 'O';
+
+        } else {
+
+            currentPlayer = player2;
+
+            player2Symbol = 'X';
+            player1Symbol = 'O';
         }
 
-        // Print board
-        System.out.println("Empty Tic-Tac-Toe Board:");
+        // Display results
+        System.out.println("===== Tic-Tac-Toe Toss Result =====");
 
-        for (int i = 0; i < board.length; i++) {
+        System.out.println(player1 + " Symbol: " + player1Symbol);
+        System.out.println(player2 + " Symbol: " + player2Symbol);
 
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j]);
-
-                if (j < board[i].length - 1) {
-                    System.out.print(" | ");
-                }
-            }
-
-            System.out.println();
-
-            if (i < board.length - 1) {
-                System.out.println("--+---+--");
-            }
-        }
+        System.out.println("Starting Player: " + currentPlayer);
     }
 }
