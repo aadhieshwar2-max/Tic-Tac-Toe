@@ -1,47 +1,31 @@
-import java.util.Random;
+import java.util.Scanner;
 
 public class TicTacToe {
 
+    // Method to convert slot number into row and column
+    public static int[] convertSlotToIndex(int slot) {
+
+        // Convert slot (1-9) to zero-based index
+        int row = (slot - 1) / 3;
+        int col = (slot - 1) % 3;
+
+        // Return row and column as array
+        return new int[]{row, col};
+    }
+
     public static void main(String[] args) {
 
-        // Players
-        String player1 = "Player 1";
-        String player2 = "Player 2";
+        Scanner scanner = new Scanner(System.in);
 
-        // Variables to store symbols and current player
-        char player1Symbol;
-        char player2Symbol;
-        String currentPlayer;
+        // Read slot number
+        System.out.print("Enter slot number (1-9): ");
+        int slot = scanner.nextInt();
 
-        // Random toss generation
-        Random random = new Random();
+        // Convert slot to row and column
+        int[] position = convertSlotToIndex(slot);
 
-        // 0 -> Player 1 starts
-        // 1 -> Player 2 starts
-        int toss = random.nextInt(2);
-
-        // Conditional logic for assigning turns and symbols
-        if (toss == 0) {
-
-            currentPlayer = player1;
-
-            player1Symbol = 'X';
-            player2Symbol = 'O';
-
-        } else {
-
-            currentPlayer = player2;
-
-            player2Symbol = 'X';
-            player1Symbol = 'O';
-        }
-
-        // Display results
-        System.out.println("===== Tic-Tac-Toe Toss Result =====");
-
-        System.out.println(player1 + " Symbol: " + player1Symbol);
-        System.out.println(player2 + " Symbol: " + player2Symbol);
-
-        System.out.println("Starting Player: " + currentPlayer);
+        // Display result
+        System.out.println("Row Index: " + position[0]);
+        System.out.println("Column Index: " + position[1]);
     }
 }
