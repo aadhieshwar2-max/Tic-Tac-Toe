@@ -1,31 +1,41 @@
-import java.util.Scanner;
-
 public class TicTacToe {
 
-    // Method to convert slot number into row and column
-    public static int[] convertSlotToIndex(int slot) {
+    // Method to validate move
+    public static boolean isValidMove(char[][] board, int row, int col) {
 
-        // Convert slot (1-9) to zero-based index
-        int row = (slot - 1) / 3;
-        int col = (slot - 1) % 3;
+        // Check if row and column are within bounds
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
+        }
 
-        // Return row and column as array
-        return new int[]{row, col};
+        // Check if cell is empty
+        if (board[row][col] != '-') {
+            return false;
+        }
+
+        // Move is valid
+        return true;
     }
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        // Create 3x3 board
+        char[][] board = {
+                {'X', '-', '-'},
+                {'-', 'O', '-'},
+                {'-', '-', '-'}
+        };
 
-        // Read slot number
-        System.out.print("Enter slot number (1-9): ");
-        int slot = scanner.nextInt();
+        int row = 1;
+        int col = 0;
 
-        // Convert slot to row and column
-        int[] position = convertSlotToIndex(slot);
+        // Validate move
+        boolean valid = isValidMove(board, row, col);
 
-        // Display result
-        System.out.println("Row Index: " + position[0]);
-        System.out.println("Column Index: " + position[1]);
+        if (valid) {
+            System.out.println("Move Accepted");
+        } else {
+            System.out.println("Invalid Move");
+        }
     }
 }
