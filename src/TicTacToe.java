@@ -1,68 +1,40 @@
 public class TicTacToe {
 
-    // Method to check winner
-    public static boolean checkWinner(char[][] board, char symbol) {
+    // Method to check if game is a draw
+    public static boolean checkDraw(char[][] board) {
 
-        // Check all rows
+        // Traverse entire board
         for (int i = 0; i < 3; i++) {
 
-            if (board[i][0] == symbol &&
-                board[i][1] == symbol &&
-                board[i][2] == symbol) {
+            for (int j = 0; j < 3; j++) {
 
-                return true;
+                // If empty cell exists, game is not a draw
+                if (board[i][j] == '-') {
+                    return false;
+                }
             }
         }
 
-        // Check all columns
-        for (int j = 0; j < 3; j++) {
-
-            if (board[0][j] == symbol &&
-                board[1][j] == symbol &&
-                board[2][j] == symbol) {
-
-                return true;
-            }
-        }
-
-        // Check main diagonal
-        if (board[0][0] == symbol &&
-            board[1][1] == symbol &&
-            board[2][2] == symbol) {
-
-            return true;
-        }
-
-        // Check opposite diagonal
-        if (board[0][2] == symbol &&
-            board[1][1] == symbol &&
-            board[2][0] == symbol) {
-
-            return true;
-        }
-
-        // No winner found
-        return false;
+        // No empty cells found
+        return true;
     }
 
     public static void main(String[] args) {
 
-        // Sample board
+        // Sample board with no empty cells
         char[][] board = {
-                {'X', 'X', 'X'},
-                {'O', '-', 'O'},
-                {'-', '-', '-'}
+                {'X', 'O', 'X'},
+                {'X', 'O', 'O'},
+                {'O', 'X', 'X'}
         };
 
-        char currentPlayer = 'X';
+        // Check draw condition
+        boolean draw = checkDraw(board);
 
-        // Check winner
-        boolean winner = checkWinner(board, currentPlayer);
-
-        if (winner) {
-            System.out.println("Player " + currentPlayer + " Wins!");
+        if (draw) {
+            System.out.println("Game Draw!");
         } else {
-            System.out.println("No Winner Yet.");
+            System.out.println("Moves Still Available.");
         }
     }
 }
